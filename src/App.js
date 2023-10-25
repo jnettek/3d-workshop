@@ -8,8 +8,8 @@ import autoshop from "./asset/autoshop.jpg";
 
 
 
-
-const RotatingBox = () => {
+//------------------------- BOX //
+const RotatingBox = ({position}) => {
     const meshRef = useRef();
 
     const physicalMaterial = new ThreeMeshPhysicalMaterial({
@@ -26,21 +26,60 @@ const RotatingBox = () => {
         }
     });
 
+    const handlePointerDown = (e) => {
+        console.log("Event triggered");
+        console.log(e)
+        e.object.active = true;
+        if (window.activeMesh) {
+            scaleDown(window.activeMesh)
+            window.activeMesh.active = false;
+        } 
+    }
+
+    const handlePointerEnter = (e) => {
+        e.object.scale.x = 1.5
+        e.object.scale.y = 1.5
+        e.object.scale.z = 1.5
+    }
+
+    const handlePointerLeave = (e) => {
+        if (!e.object.active) {
+           scaleDown(e.object);
+        }
+    }
+
+    const scaleDown = (object) => {
+        object.scale.x = 1
+        object.scale.y = 1
+        object.scale.z = 1
+    }
+
     return (
-        <Box args={[1, 1, 1]} position={[0, 1, 0]} ref={meshRef} castShadow receiveShadow>
+        <Box args={[1, 1, 1]} 
+        position={position} 
+        ref={meshRef} receiveShadow castShadow
+        onPointerDown={handlePointerDown}
+        onPointerEnter={handlePointerEnter}
+        onPointerLeave={handlePointerLeave}
+        >
             <primitive object={physicalMaterial} />
         </Box>
     );
 }
 
+//----------------------- Floor //
+
 const Floor = () => {
   return (
     <mesh position={[0, -0.5, 0]} receiveShadow>
     <Box args={[20, 1, 10]} receiveShadow />
-    <meshPhysicalMaterial />
+    <meshPhysicalMaterial receiveShadow={true}/>
   </mesh>
   );
 }
+
+
+//------------------- Light Bulb //
 
 const Bulb = () => {
     return (
@@ -60,6 +99,8 @@ const Bulb = () => {
     );
 } 
 
+//-------------------------- BACKGROUND //
+
 const Background = () => {
     const { gl } = useThree();
     const texture = useLoader(THREE.TextureLoader, autoshop)
@@ -75,13 +116,41 @@ const Background = () => {
 
 
 function App() {
+    const handleClick = (e) => {
+        if (!window.activeMesh) return;
+        window.activeMesh.material.color = new THREE.Color(e.target.style.background)
+    }
     return (
         <div style={{height: '100vh', width: '100vw'}}>
+            <div style={{position: 'absolute', zIndex: 1}}>
+                <div
+                onClick={handleClick}
+                style={{background: 'blue',
+                height: 50,
+                width: 50
+                }}
+                ></div>
+                   <div
+                onClick={handleClick}
+                style={{background: 'yellow',
+                height: 50,
+                width: 50
+                }}
+                ></div>
+                   <div
+                onClick={handleClick}
+                style={{background: 'white',
+                height: 50,
+                width: 50
+                }}
+                ></div>
+            </div>
             <Canvas style={{background: 'black'}}
-            camera={{ position: [3,3,3]}} shadowMap>
+            camera={{ position: [7,7,7]}} shadowMap>
                 <ambientLight intensity={0.2} />
                 <Bulb/>
-                <RotatingBox />
+                <RotatingBox  position={[-4, 1, 0]} />
+                <RotatingBox  position={[4, 1, 0]} />
                 <Suspense fallback={null}>
                     <Background />
                 </Suspense>
