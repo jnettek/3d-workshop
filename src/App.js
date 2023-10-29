@@ -4,6 +4,7 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { AxesHelper } from 'three';
 import { Suspense } from 'react';
+import { Physics } from '@react-three/cannon';
 import RotatingBox from './components/RotatingBox';
 import Background from './components/Background';
 import Floor from './components/Floor';
@@ -24,8 +25,9 @@ function App() {
             <Canvas style={{background: 'black'}}
             camera={{ position: [7,7,7]}} shadowMap>
                 <ambientLight intensity={0.2} />
-                <Bulb/>
+                <Physics>
                 <Dragable orbitControlsRef={orbitRef}>
+                <Bulb/>
                 <RotatingBox  position={[-4, 1, 0]} />
                 <RotatingBox  position={[4, 1, 0]} />
                 </Dragable>
@@ -33,6 +35,7 @@ function App() {
                     <Background />
                 </Suspense>
                 <Floor/>
+                </Physics>
                 <primitive object={new AxesHelper(5)} />
                 <OrbitControls ref={orbitRef}/>
             </Canvas>

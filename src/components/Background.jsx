@@ -5,13 +5,14 @@ import autoshop from "../asset/autoshop.jpg";
 import { useMemo } from 'react';
 
 const Background = () => {
+
     const { gl } = useThree();
     const texture = useLoader(THREE.TextureLoader, autoshop)
-    const formatted = useMemo(() => {
+    const formatted = useMemo(() => 
     new THREE.WebGLCubeRenderTarget(texture.image.height)
     .fromEquirectangularTexture(gl, texture)
-    },[])
-
+    ,[])
+    
     return (
         <primitive 
         attach='background'

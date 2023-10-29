@@ -22,6 +22,14 @@ const Dragable = (props) => {
             }
         });
 
+        // controls.current.addEventListener('drag', e => e.object.api.position.copy(e.object.position))
+
+        controls.addEventListener('drag', (e) => {
+            if (e.object && e.object.api) {
+                e.object.api.position.copy(e.object.position);
+            }
+        });
+
         return () => {
             controls.dispose();
         };
