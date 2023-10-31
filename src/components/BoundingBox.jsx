@@ -1,4 +1,6 @@
-import { useBox } from 'use-cannon'
+import * as THREE from 'three';
+import { useBox } from '@react-three/cannon';
+import { extend } from '@react-three/fiber'
 
 const BoundingBox = ({
     position = [0,0,0],
@@ -11,7 +13,7 @@ const BoundingBox = ({
     return (
         <group ref={ref} api={api}>
             <mesh scale={dims} visible={visible}>
-                <boxBufferGeometry />
+                <boxGeometry />
                 <meshPhysicalMaterial wireframe/>
             </mesh>
             <group position={offset}>
@@ -22,3 +24,5 @@ const BoundingBox = ({
 }
 
 export default BoundingBox
+
+
