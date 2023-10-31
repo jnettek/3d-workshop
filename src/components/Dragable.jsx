@@ -9,6 +9,7 @@ const Dragable = (props) => {
 
     useEffect(() => {
         const controls = new DragControls(groupRef.current.children, camera, gl.domElement);
+        controls.transformGroup = true;  // Enable group transform
 
         controls.addEventListener('hoveron', () => {
             if (props.orbitControlsRef && props.orbitControlsRef.current) {
@@ -22,12 +23,18 @@ const Dragable = (props) => {
             }
         });
 
-        // controls.current.addEventListener('drag', e => e.object.api.position.copy(e.object.position))
+          // Additional functionality during drag operations
+        controls.addEventListener('dragstart', e => {
+            e.object.api?.mass.set(0);  // Example from the tutorial
+        });
 
-        controls.addEventListener('drag', (e) => {
-            if (e.object && e.object.api) {
-                e.object.api.position.copy(e.object.position);
-            }
+        controls.addEventListener('drag', e => {
+            e.object.api?.position.copy(e.object.position);  // Update position during drag
+            e.object.api?.velocity.set(0, 0, 0);  // Reset velocity during drag (from tutorial)
+        });
+
+        controls.addEventListener('dragend', e => {
+            e.object.api?.mass.set(1);  // Example from the tutorial
         });
 
         return () => {
@@ -37,6 +44,7 @@ const Dragable = (props) => {
 
     return (
         <group ref={groupRef}>
+
             {props.children}
         </group>
     );

@@ -11,6 +11,8 @@ import Floor from './components/Floor';
 import ColorPicker from './components/ColorPicker';
 import Bulb from './components/Bulb';
 import Dragable from './components/Dragable';
+import Model from './components/Model';
+// import modelPath from './asset/tesla_model_y/scene.gltf';
 
 
 
@@ -26,11 +28,25 @@ function App() {
             camera={{ position: [7,7,7]}} shadowMap>
                 <ambientLight intensity={0.2} />
                 <Physics>
-                <Dragable orbitControlsRef={orbitRef}>
                 <Bulb/>
-                <RotatingBox  position={[-4, 1, 0]} />
-                <RotatingBox  position={[4, 1, 0]} />
+                <Suspense fallback={null}>
+                <Dragable orbitControlsRef={orbitRef}>
+                    <Model 
+                    path='/tesla_2018_model_3/scene.gltf'
+                    scale={new Array(3).fill(0.01)}
+                    position={[-4,1.25,0]}
+                    />
                 </Dragable>
+                </Suspense>
+                <Suspense fallback={null}>
+                    <Dragable orbitControlsRef={orbitRef}p>
+                    <Model 
+                    path='/tesla_model_y/scene.gltf'
+                    scale={new Array(3).fill(0.01)}
+                    position={[4,0.5,0]}
+                    />
+                    </Dragable>
+                </Suspense>
                 <Suspense fallback={null}>
                     <Background />
                 </Suspense>
