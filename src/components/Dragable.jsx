@@ -9,7 +9,7 @@ const Dragable = (props) => {
 
     useEffect(() => {
         const controls = new DragControls(groupRef.current.children, camera, gl.domElement);
-        controls.transformGroup = true;  // Enable group transform
+        controls.transformGroup = false;  // Enable group transform
 
         controls.addEventListener('hoveron', () => {
             if (props.orbitControlsRef && props.orbitControlsRef.current) {
@@ -26,6 +26,7 @@ const Dragable = (props) => {
           // Additional functionality during drag operations
         controls.addEventListener('dragstart', e => {
             e.object.api?.mass.set(0);  // Example from the tutorial
+            console.log(e.object)
         });
 
         controls.addEventListener('drag', e => {

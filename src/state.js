@@ -1,12 +1,12 @@
 import * as THREE from 'three'
 // model3 name: "Capot001_CAR_PAINT_0"
-// model s name: "object005_bod_0"
+// "mesh004_paint_0"
 const state = {
     activeMesh: {},
-    activeMeshName: "Capot001_CAR_PAINT_0",
-    cameraPos: new THREE.Vector3(9,2,4),
-    target: new THREE.Vector3(4,0,0),
-    shouldUpdate: false
+    activeMeshName: "mesh004_paint_0",
+    cameraPos: new THREE.Vector3(7,3,2),
+    target: new THREE.Vector3(3,0,0),
+    shouldUpdate: true
 }
 
-export default state
+export default state;
