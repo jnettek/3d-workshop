@@ -10,7 +10,7 @@ const style = {
     bottom: '10vh',
     height: '40px',
     width: '40px',
-    backgroundColor: 'rgb(30, 75, 93)',
+    backgroundColor: 'white',
     color: 'black',
     borderRadius: '50%',
     fontSize: 20,
@@ -22,16 +22,18 @@ const style = {
 const CameraButtons = ({}) => {
 
     const sets = {
-        // "mesh004_paint_0" SUV
+       //model_s right
         1: {
-            cameraPos: [7,3,2],
+            cameraPos: [8,3,2],
             target: [4,0,0],
-            name: 'mesh004_paint_0'
+            name: "object005_bod_0"
         },
+        //model_3 left
         2: {
+            //X,Y,Z
             cameraPos: [-1,3,2],
-            target: [-4,0,0]
-           
+            target: [-4,0,0],
+            name: 'Capot001_CAR_PAINT_0'
         }
     }
 
@@ -42,6 +44,7 @@ const CameraButtons = ({}) => {
         state.shouldUpdate = true
 
     }
+
 
     return (
         <>
