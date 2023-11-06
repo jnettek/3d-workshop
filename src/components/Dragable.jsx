@@ -1,6 +1,6 @@
 import { DragControls } from 'three/addons/controls/DragControls.js';
 import { useThree, extend } from '@react-three/fiber';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 extend({ DragControls });
 
 const Dragable = (props) => {

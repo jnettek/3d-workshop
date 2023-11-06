@@ -1,4 +1,4 @@
-import {useState} from 'react';
+
 import state from '../state'
 
 const style = {
@@ -19,7 +19,7 @@ const style = {
     cursor: 'pointer'
 }
 
-const CameraButtons = ({}) => {
+const CameraButtons = () => {
 
     const sets = {
        //model_s right

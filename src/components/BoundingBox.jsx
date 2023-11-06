@@ -1,6 +1,6 @@
-import * as THREE from 'three';
+
 import { useBox } from '@react-three/cannon';
-import { extend } from '@react-three/fiber'
+
 
 const BoundingBox = ({
     position = [0,0,0],
